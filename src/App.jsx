@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Activity,
   AlertTriangle,
@@ -30,6 +30,7 @@ import { TravelGlobe } from "./components/TravelGlobe.jsx";
 import { expenseCategories, monthlyTrend, recentExpenses as initialExpenses, safetyCountries } from "./data/mockData.js";
 
 const navItems = ["Dashboard", "Expenses", "Analytics", "Travel Safety"];
+const expensesStorageKey = "travaid.expenses";
 const defaultForm = {
   amount: "",
   category: "Travel & Transportation",
@@ -38,7 +39,7 @@ const defaultForm = {
 };
 
 function App() {
-  const [expenses, setExpenses] = useState(initialExpenses);
+  const [expenses, setExpenses] = useState(loadStoredExpenses);
   const [expenseForm, setExpenseForm] = useState(defaultForm);
   const [selectedCountryCode, setSelectedCountryCode] = useState(safetyCountries[0].code);
   const selectedCountry = safetyCountries.find((country) => country.code === selectedCountryCode) || safetyCountries[0];
@@ -54,6 +55,10 @@ function App() {
       return date.getMonth() === 4 ? total + expense.amount : total;
     }, 0);
     return monthlyTrend.map((month) => (month.month === "May" ? { ...month, spent: mayTotal } : month));
+  }, [expenses]);
+
+  useEffect(() => {
+    localStorage.setItem(expensesStorageKey, JSON.stringify(expenses));
   }, [expenses]);
 
   const handleExpenseChange = (event) => {
@@ -326,6 +331,30 @@ function App() {
   );
 }
 
+function loadStoredExpenses() {
+  try {
+    const storedExpenses = localStorage.getItem(expensesStorageKey);
+    if (!storedExpenses) {
+      return initialExpenses;
+    }
+
+    const parsedExpenses = JSON.parse(storedExpenses);
+    return Array.isArray(parsedExpenses) && parsedExpenses.every(isExpense) ? parsedExpenses : initialExpenses;
+  } catch {
+    return initialExpenses;
+  }
+}
+
+function isExpense(expense) {
+  return (
+    expense &&
+    typeof expense.id !== "undefined" &&
+    typeof expense.name === "string" &&
+    typeof expense.category === "string" &&
+    typeof expense.date === "string" &&
+    typeof expense.amount === "number"
+  );
+}
 function Stat({ icon: Icon, label, value }) {
   return (
     <div className="stat">
