@@ -18,9 +18,18 @@ npm run preview
 
 ## Project Structure
 
-- `src/App.jsx` - page layout and feature sections.
+- `src/App.jsx` - main state container that connects all sections.
+- `src/components/Header.jsx` - top navigation.
+- `src/components/HeroSection.jsx` - TravAid title and dashboard hero stats.
+- `src/components/SummaryCards.jsx` - four summary metric cards.
+- `src/components/ExpenseSection.jsx` - expense form and expense table.
+- `src/components/AnalyticsSection.jsx` - pie chart and line chart.
+- `src/components/TravelSafetySection.jsx` - country list and safety detail panel.
 - `src/components/TravelGlobe.jsx` - Three.js globe with country safety markers.
+- `src/components/RoadmapSection.jsx` - development roadmap cards.
+- `src/components/Common.jsx` - small reusable UI components.
 - `src/data/mockData.js` - replaceable data layer for expenses, analytics, and travel safety.
+- `src/utils/expenseUtils.js` - expense calculations, formatting, validation, and localStorage helpers.
 - `src/styles.css` - responsive visual system.
 - `vite.config.js` - React plugin and chunk splitting for charts/globe.
 
