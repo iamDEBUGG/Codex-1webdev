@@ -4,6 +4,7 @@ export const expenseCategories = [
   { name: "Bills & Subscriptions", value: 0, color: "#7c3aed" },
   { name: "Health & Wellness", value: 0, color: "#f80606ff" },
   { name: "Entertainment", value: 0, color: "#f59e0b" },
+  { name: "Shopping", value: 0, color: "#db2777" },
   { name: "Other", value: 0, color: "#64748b" }
 ];
 
