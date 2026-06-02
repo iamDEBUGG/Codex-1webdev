@@ -2,6 +2,7 @@ export const expenseCategories = [
   { name: "Food & Dining", value: 0, color: "#0f766e" },
   { name: "Travel & Transportation", value: 0, color: "#2563eb" },
   { name: "Bills & Subscriptions", value: 0, color: "#7c3aed" },
+  { name: "Health & Wellness", value: 0, color: "#f80606ff" },
   { name: "Entertainment", value: 0, color: "#f59e0b" },
   { name: "Other", value: 0, color: "#64748b" }
 ];
