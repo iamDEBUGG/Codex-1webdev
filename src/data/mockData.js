@@ -11,7 +11,8 @@ export const monthlyTrend = [
   { month: "Feb", spent: 34850 },
   { month: "Mar", spent: 32600 },
   { month: "Apr", spent: 39420 },
-  { month: "May", spent: 0 }
+  { month: "May", spent: 2500 },
+  { month: "Jun", spent: 0 }
 ];
 
 export const recentExpenses = [
