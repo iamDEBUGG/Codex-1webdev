@@ -67,7 +67,7 @@ export function buildMonthlyTrend(expenses) {
     return date.getMonth() === 4 ? total + expense.amount : total;
   }, 0);
 
-  return monthlyTrend.map((month) => (month.month === "May" ? { ...month, spent: mayTotal } : month));
+  return monthlyTrend.map((month) => (month.month === "Jun" ? { ...month, spent: mayTotal } : month));
 }
 
 export function formatCurrency(value) {
