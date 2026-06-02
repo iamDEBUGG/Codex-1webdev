@@ -1,4 +1,8 @@
-import { expenseCategories, monthlyTrend, recentExpenses } from "../data/mockData.js";
+import {
+  expenseCategories,
+  monthlyTrend,
+  recentExpenses,
+} from "../data/mockData.js";
 
 export const monthlyBudget = 60000;
 export const expensesStorageKey = "travaid.expenses";
@@ -7,7 +11,7 @@ export const emptyExpenseForm = {
   amount: "",
   category: "Travel & Transportation",
   date: "2026-05-01",
-  description: ""
+  description: "",
 };
 
 export function loadStoredExpenses() {
@@ -16,7 +20,9 @@ export function loadStoredExpenses() {
     if (!storedExpenses) return recentExpenses;
 
     const parsedExpenses = JSON.parse(storedExpenses);
-    return Array.isArray(parsedExpenses) && parsedExpenses.every(isExpense) ? parsedExpenses : recentExpenses;
+    return Array.isArray(parsedExpenses) && parsedExpenses.every(isExpense)
+      ? parsedExpenses
+      : recentExpenses;
   } catch {
     return recentExpenses;
   }
@@ -39,15 +45,24 @@ export function createExpense(form) {
     name: description,
     category: form.category,
     date: form.date,
-    amount
+    amount,
   };
 }
 
 export function calculateExpenseSummary(expenses) {
-  const totalSpent = expenses.reduce((total, expense) => total + expense.amount, 0);
-  const averageExpense = expenses.length ? Math.round(totalSpent / expenses.length) : 0;
-  const budgetUsed = Math.min(Math.round((totalSpent / monthlyBudget) * 100), 100);
-  const alerts = budgetUsed >= 90 ? 3 : budgetUsed >= 75 ? 2 : budgetUsed >= 60 ? 1 : 0;
+  const totalSpent = expenses.reduce(
+    (total, expense) => total + expense.amount,
+    0,
+  );
+  const averageExpense = expenses.length
+    ? Math.round(totalSpent / expenses.length)
+    : 0;
+  const budgetUsed = Math.min(
+    Math.round((totalSpent / monthlyBudget) * 100),
+    100,
+  );
+  const alerts =
+    budgetUsed >= 90 ? 3 : budgetUsed >= 75 ? 2 : budgetUsed >= 60 ? 1 : 0;
 
   return { totalSpent, averageExpense, budgetUsed, alerts };
 }
@@ -57,25 +72,42 @@ export function buildCategoryTotals(expenses) {
     ...category,
     value: expenses
       .filter((expense) => expense.category === category.name)
-      .reduce((total, expense) => total + expense.amount, 0)
+      .reduce((total, expense) => total + expense.amount, 0),
   }));
 }
 
 export function buildMonthlyTrend(expenses) {
-  const mayTotal = expenses.reduce((total, expense) => {
+  const totalsByMonth = new Map(
+    monthlyTrend.map((month) => [month.month, 0]),
+  );
+
+  expenses.forEach((expense) => {
     const date = new Date(`${expense.date}T00:00:00`);
-    return date.getMonth() === 4 ? total + expense.amount : total;
-  }, 0);
+    if (Number.isNaN(date.getTime())) return;
 
-  return monthlyTrend.map((month) => (month.month === "Jun" ? { ...month, spent: mayTotal } : month));
+    const monthName = new Intl.DateTimeFormat("en-IN", {
+      month: "short",
+    }).format(date);
+    totalsByMonth.set(
+      monthName,
+      (totalsByMonth.get(monthName) || 0) + expense.amount,
+    );
+  });
+
+  return monthlyTrend.map((month) => ({
+    ...month,
+    spent: totalsByMonth.get(month.month) || 0,
+  }));
 }
-
 export function formatCurrency(value) {
   return `Rs ${Number(value).toLocaleString("en-IN")}`;
 }
 
 export function formatDate(value) {
-  return new Intl.DateTimeFormat("en-IN", { day: "2-digit", month: "short" }).format(new Date(`${value}T00:00:00`));
+  return new Intl.DateTimeFormat("en-IN", {
+    day: "2-digit",
+    month: "short",
+  }).format(new Date(`${value}T00:00:00`));
 }
 
 function isExpense(expense) {
