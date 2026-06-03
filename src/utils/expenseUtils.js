@@ -32,6 +32,11 @@ export function saveExpenses(expenses) {
   localStorage.setItem(expensesStorageKey, JSON.stringify(expenses));
 }
 
+export function resetStoredExpenses() {
+  localStorage.removeItem(expensesStorageKey);
+  return recentExpenses;
+}
+
 export function createExpense(form) {
   const amount = Number(form.amount);
   const description = form.description.trim();
@@ -99,6 +104,7 @@ export function buildMonthlyTrend(expenses) {
     spent: totalsByMonth.get(month.month) || 0,
   }));
 }
+
 export function formatCurrency(value) {
   return `Rs ${Number(value).toLocaleString("en-IN")}`;
 }

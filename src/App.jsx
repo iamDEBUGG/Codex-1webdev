@@ -14,6 +14,7 @@ import {
   createExpense,
   emptyExpenseForm,
   loadStoredExpenses,
+  resetStoredExpenses,
   saveExpenses
 } from "./utils/expenseUtils.js";
 
@@ -47,6 +48,15 @@ function App() {
     setExpenseForm(emptyExpenseForm);
   }
 
+  function deleteExpense(id) {
+    setExpenses((currentExpenses) => currentExpenses.filter((e) => e.id !== id));
+  }
+
+  function resetExpenses() {
+    const defaults = resetStoredExpenses();
+    setExpenses(defaults);
+  }
+
   return (
     <main className="app-shell">
       <Header />
@@ -70,6 +80,8 @@ function App() {
         expenses={expenses}
         onFormChange={updateExpenseForm}
         onSubmit={addExpense}
+        onDelete={deleteExpense}
+        onReset={resetExpenses}
       />
       <AnalyticsSection categoryData={chartCategories} trendData={trendData} />
       <TravelSafetySection
