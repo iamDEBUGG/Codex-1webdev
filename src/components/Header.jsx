@@ -5,11 +5,11 @@ const navItems = ["Dashboard", "Expenses", "Analytics", "Travel Safety"];
 export function Header() {
   return (
     <header className="topbar" aria-label="Main navigation">
-      <a className="brand" href="#dashboard" aria-label="TravAid home">
+      <a className="brand" href="#dashboard" aria-label="RoamSense home">
         <span className="brand-mark">
           <Plane size={20} />
         </span>
-        <span>TravAid</span>
+        <span>RoamSense</span>
       </a>
       <nav className="nav-links">
         {navItems.map((item) => (

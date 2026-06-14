@@ -7,7 +7,7 @@ export function HeroSection({ totalSpent, budgetUsed, expenseCount, safeCountrie
     <section className="hero" id="dashboard">
       <div className="hero-copy">
         <p className="eyebrow">Expense tracking with travel intelligence</p>
-        <h1>TravAid</h1>
+        <h1>RoamSense</h1>
         <p className="hero-text">
           Plan trips with confidence, track spending in real time, and compare country safety signals from one calm,
           focused dashboard.
@@ -23,7 +23,7 @@ export function HeroSection({ totalSpent, budgetUsed, expenseCount, safeCountrie
           </a>
         </div>
       </div>
-      <div className="hero-panel" aria-label="TravAid overview">
+      <div className="hero-panel" aria-label="RoamSense overview">
         <div className="status-strip">
           <span>May budget</span>
           <strong>{budgetUsed}% used</strong>

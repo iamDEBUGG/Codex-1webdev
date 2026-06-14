@@ -1,4 +1,4 @@
-# TravAid Quick Demo Cheatsheet
+# RoamSense Quick Demo Cheatsheet
 
 Use this 5 minutes before your presentation.
 
@@ -19,12 +19,12 @@ If it says refused to connect, run `npm run preview` again.
 
 ## 30-Second Intro
 
-TravAid is a travel-focused expense tracker. It helps users manage spending and compare destination safety from one dashboard. It uses React for UI, Recharts for analytics, Three.js for the 3D globe, and localStorage for saving expenses in the browser.
+RoamSense is a travel-focused expense tracker. It helps users manage spending and compare destination safety from one dashboard. It uses React for UI, Recharts for analytics, Three.js for the 3D globe, and localStorage for saving expenses in the browser.
 
 ## Demo Order
 
 1. Home/Dashboard:
-   - Show TravAid title.
+   - Show RoamSense title.
    - Explain total spent, average expense, budget alerts, safe countries.
 
 2. Expenses:
@@ -129,4 +129,4 @@ npm run build
 
 ## Strong Final Line
 
-TravAid is built with a modular structure, so expense data, travel safety data, charts, and globe visualization can evolve independently without breaking the whole app.
+RoamSense is built with a modular structure, so expense data, travel safety data, charts, and globe visualization can evolve independently without breaking the whole app.

@@ -5,7 +5,7 @@ import {
 } from "../data/mockData.js";
 
 export const monthlyBudget = 60000;
-export const expensesStorageKey = "travaid.expenses";
+export const expensesStorageKey = "RoamSense.expenses";
 
 export const emptyExpenseForm = {
   amount: "",

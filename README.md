@@ -1,6 +1,6 @@
-# TravAid
+# RoamSense
 
-TravAid is a React/Vite frontend for an expense tracker with travel safety intelligence. It is structured so the mock data can be replaced by MERN backend APIs later without redesigning the UI.
+RoamSense is a React/Vite frontend for an expense tracker with travel safety intelligence. It is structured so the mock data can be replaced by MERN backend APIs later without redesigning the UI.
 
 ## Run Locally
 
@@ -20,7 +20,7 @@ npm run preview
 
 - `src/App.jsx` - main state container that connects all sections.
 - `src/components/Header.jsx` - top navigation.
-- `src/components/HeroSection.jsx` - TravAid title and dashboard hero stats.
+- `src/components/HeroSection.jsx` - RoamSense title and dashboard hero stats.
 - `src/components/SummaryCards.jsx` - four summary metric cards.
 - `src/components/ExpenseSection.jsx` - expense form and expense table.
 - `src/components/AnalyticsSection.jsx` - pie chart and line chart.

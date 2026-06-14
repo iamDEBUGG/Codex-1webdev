@@ -1,10 +1,10 @@
-# TravAid College Presentation Guide
+# RoamSense College Presentation Guide
 
-This guide is for explaining TravAid during a project showcase or viva. Keep it open while practicing.
+This guide is for explaining RoamSense during a project showcase or viva. Keep it open while practicing.
 
 ## 1. One-Minute Project Explanation
 
-TravAid is a full-stack-ready web application concept that combines two useful features in one platform:
+RoamSense is a full-stack-ready web application concept that combines two useful features in one platform:
 
 - Expense tracking: users can add travel or daily expenses, see totals, averages, category charts, and monthly trends.
 - Travel safety intelligence: users can select countries on a list or 3D globe and see safety score details, positive signals, and advisories.
@@ -13,7 +13,7 @@ The current project is a React frontend using mock data. It is designed so a MER
 
 Good viva answer:
 
-> TravAid helps a traveler manage money and destination safety in one dashboard. The frontend is built in React with reusable components, state management using hooks, charts using Recharts, and an interactive 3D globe using Three.js.
+> RoamSense helps a traveler manage money and destination safety in one dashboard. The frontend is built in React with reusable components, state management using hooks, charts using Recharts, and an interactive 3D globe using Three.js.
 
 ## 2. How To Run The Project
 
@@ -69,7 +69,7 @@ Important files:
 
 - `src/App.jsx`: main state container. It connects all sections together.
 - `src/components/Header.jsx`: top navigation bar.
-- `src/components/HeroSection.jsx`: main TravAid intro and hero stats.
+- `src/components/HeroSection.jsx`: main RoamSense intro and hero stats.
 - `src/components/SummaryCards.jsx`: dashboard metric cards.
 - `src/components/ExpenseSection.jsx`: expense form and expense table.
 - `src/components/AnalyticsSection.jsx`: category pie chart and monthly line chart.
@@ -545,7 +545,7 @@ This file controls layout and visual design.
 Main sections:
 
 - `.topbar`: navigation bar.
-- `.hero`: first large TravAid section.
+- `.hero`: first large RoamSense section.
 - `.summary-grid`: dashboard summary cards.
 - `.expense-layout`: form and table layout.
 - `.chart-grid`: analytics charts.
@@ -726,7 +726,7 @@ CSS media queries change grids into single-column layouts on smaller screens.
 Use this order:
 
 1. Start with homepage:
-   - Explain TravAid name and project goal.
+   - Explain RoamSense name and project goal.
 2. Show dashboard cards:
    - Total spent, average expense, safe picks, budget alerts.
 3. Add an expense:
@@ -799,4 +799,4 @@ Strong ideas to mention in viva:
 
 Use this at the end:
 
-> TravAid is designed as a stable frontend foundation for a MERN full-stack application. The current version demonstrates expense tracking, analytics, persistent browser storage, and interactive travel safety visualization. The code separates data, UI, styling, and 3D logic, so future features like authentication, database APIs, and real travel advisory data can be added without rewriting the entire project.
+> RoamSense is designed as a stable frontend foundation for a MERN full-stack application. The current version demonstrates expense tracking, analytics, persistent browser storage, and interactive travel safety visualization. The code separates data, UI, styling, and 3D logic, so future features like authentication, database APIs, and real travel advisory data can be added without rewriting the entire project.
