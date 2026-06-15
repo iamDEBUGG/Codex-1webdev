@@ -113,6 +113,11 @@ a {
     linear-gradient(180deg, #f5f7f4 0%, #e9f0eb 100%);
 }
 
+.hero-copy {
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
 .eyebrow {
   margin: 0 0 10px;
   color: #0f766e;
@@ -131,7 +136,7 @@ a {
 }
 
 .hero h1 {
-  font-size: clamp(4.2rem, 12vw, 9.8rem);
+  font-size: clamp(3.6rem, 10vw, 7.8rem);
 }
 
 .hero-text {
