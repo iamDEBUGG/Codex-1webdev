@@ -1,6 +1,6 @@
 import { Plane, Search } from "lucide-react";
 
-const navItems = ["Dashboard", "Expenses", "Analytics", "Travel Safety"];
+const navItems = ["Dashboard", "Expenses", "Analytics", "Travel Safety", "Smart AI"];
 
 export function Header() {
   return (

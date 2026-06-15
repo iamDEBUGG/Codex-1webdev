@@ -4,6 +4,7 @@ import { ExpenseSection } from "./components/ExpenseSection.jsx";
 import { Header } from "./components/Header.jsx";
 import { HeroSection } from "./components/HeroSection.jsx";
 import { RoadmapSection } from "./components/RoadmapSection.jsx";
+import { SmartExpenseAI } from "./components/SmartExpenseAI.jsx";
 import { SummaryCards } from "./components/SummaryCards.jsx";
 import { TravelSafetySection } from "./components/TravelSafetySection.jsx";
 import { safetyCountries } from "./data/mockData.js";
@@ -90,6 +91,7 @@ function App() {
         onSelectCountry={setSelectedCountryCode}
       />
       <RoadmapSection />
+      <SmartExpenseAI expenses={expenses} />
     </main>
   );
 }
