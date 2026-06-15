@@ -34,15 +34,11 @@ export function TravelGlobe({ countries, selectedCountryCode, onSelectCountry })
     scene.add(globeGroup);
     globeGroup.rotation.x = -0.18;
 
-    const earthTexture = new THREE.CanvasTexture(createEarthTexture());
-    earthTexture.colorSpace = THREE.SRGBColorSpace;
-    earthTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-
-    const globeGeometry = new THREE.SphereGeometry(1.72, 128, 128);
+    const globeGeometry = new THREE.SphereGeometry(1.72, 64, 64);
     const globeMaterial = new THREE.MeshStandardMaterial({
-      map: earthTexture,
-      roughness: 0.62,
-      metalness: 0.02
+      color: 0x09090b, // Obsidian
+      roughness: 0.7,
+      metalness: 0.2
     });
     const globe = new THREE.Mesh(globeGeometry, globeMaterial);
     globeGroup.add(globe);
@@ -50,23 +46,24 @@ export function TravelGlobe({ countries, selectedCountryCode, onSelectCountry })
     const cloudTexture = new THREE.CanvasTexture(createCloudTexture());
     cloudTexture.colorSpace = THREE.SRGBColorSpace;
     const clouds = new THREE.Mesh(
-      new THREE.SphereGeometry(1.745, 96, 96),
+      new THREE.SphereGeometry(1.745, 64, 64),
       new THREE.MeshStandardMaterial({
         map: cloudTexture,
         transparent: true,
-        opacity: 0.28,
-        depthWrite: false
+        opacity: 0.15,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending
       })
     );
     globeGroup.add(clouds);
 
     const grid = new THREE.Mesh(
-      new THREE.SphereGeometry(1.752, 40, 40),
+      new THREE.SphereGeometry(1.722, 36, 36),
       new THREE.MeshBasicMaterial({
-        color: 0xe8fbff,
+        color: 0x3f3f46, // Graphite
         wireframe: true,
         transparent: true,
-        opacity: 0.08
+        opacity: 0.25
       })
     );
     globeGroup.add(grid);
@@ -74,10 +71,11 @@ export function TravelGlobe({ countries, selectedCountryCode, onSelectCountry })
     const atmosphere = new THREE.Mesh(
       new THREE.SphereGeometry(1.9, 64, 64),
       new THREE.MeshBasicMaterial({
-        color: 0x9bd9ff,
+        color: 0x52525b, // Slate
         transparent: true,
-        opacity: 0.18,
-        side: THREE.BackSide
+        opacity: 0.12,
+        side: THREE.BackSide,
+        blending: THREE.AdditiveBlending
       })
     );
     globeGroup.add(atmosphere);
@@ -119,15 +117,15 @@ export function TravelGlobe({ countries, selectedCountryCode, onSelectCountry })
       rings.push(pulse);
     });
 
-    const keyLight = new THREE.DirectionalLight(0xffffff, 2.6);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 3.0);
     keyLight.position.set(2.5, 3.4, 4);
     scene.add(keyLight);
 
-    const rimLight = new THREE.DirectionalLight(0x9bd9ff, 1.35);
+    const rimLight = new THREE.DirectionalLight(0xffffff, 1.5);
     rimLight.position.set(-3.2, 1.2, -2);
     scene.add(rimLight);
 
-    const fillLight = new THREE.AmbientLight(0xdff7f0, 0.82);
+    const fillLight = new THREE.AmbientLight(0xffffff, 1.0);
     scene.add(fillLight);
 
     const raycaster = new THREE.Raycaster();
@@ -235,7 +233,6 @@ export function TravelGlobe({ countries, selectedCountryCode, onSelectCountry })
       renderer.domElement.removeEventListener("pointerup", handlePointerUp);
       renderer.domElement.removeEventListener("pointerleave", handlePointerLeave);
       renderer.dispose();
-      earthTexture.dispose();
       cloudTexture.dispose();
       globeGeometry.dispose();
       globeMaterial.dispose();
@@ -253,100 +250,7 @@ export function TravelGlobe({ countries, selectedCountryCode, onSelectCountry })
   return <div className="globe-canvas" ref={mountRef} aria-label="3D Earth globe with travel safety markers" />;
 }
 
-function createEarthTexture() {
-  const canvas = document.createElement("canvas");
-  canvas.width = 2048;
-  canvas.height = 1024;
-  const ctx = canvas.getContext("2d");
 
-  const ocean = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-  ocean.addColorStop(0, "#0b3b82");
-  ocean.addColorStop(0.5, "#0d6e9e");
-  ocean.addColorStop(1, "#063764");
-  ctx.fillStyle = ocean;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  drawLand(ctx, "#2f8f58", [
-    [310, 250],
-    [420, 185],
-    [560, 205],
-    [640, 315],
-    [590, 430],
-    [475, 455],
-    [370, 390],
-    [285, 330]
-  ]);
-  drawLand(ctx, "#3da263", [
-    [585, 460],
-    [675, 510],
-    [710, 650],
-    [665, 820],
-    [585, 905],
-    [535, 750],
-    [510, 590]
-  ]);
-  drawLand(ctx, "#4aa96c", [
-    [900, 260],
-    [1030, 210],
-    [1165, 265],
-    [1250, 380],
-    [1215, 540],
-    [1065, 560],
-    [940, 490],
-    [850, 360]
-  ]);
-  drawLand(ctx, "#5bbf72", [
-    [1110, 505],
-    [1245, 540],
-    [1325, 705],
-    [1280, 880],
-    [1135, 910],
-    [1055, 760]
-  ]);
-  drawLand(ctx, "#3f9d5f", [
-    [1185, 210],
-    [1405, 185],
-    [1605, 265],
-    [1700, 410],
-    [1590, 500],
-    [1375, 455],
-    [1230, 360]
-  ]);
-  drawLand(ctx, "#62b86f", [
-    [1515, 620],
-    [1645, 585],
-    [1775, 665],
-    [1825, 790],
-    [1710, 860],
-    [1560, 815]
-  ]);
-  drawLand(ctx, "#2e8354", [
-    [1265, 95],
-    [1420, 72],
-    [1540, 120],
-    [1485, 170],
-    [1300, 160]
-  ]);
-
-  ctx.globalAlpha = 0.22;
-  ctx.strokeStyle = "#d9f7ff";
-  ctx.lineWidth = 1;
-  for (let y = 128; y < canvas.height; y += 128) {
-    ctx.beginPath();
-    ctx.moveTo(0, y);
-    ctx.lineTo(canvas.width, y);
-    ctx.stroke();
-  }
-  for (let x = 128; x < canvas.width; x += 128) {
-    ctx.beginPath();
-    ctx.moveTo(x, 0);
-    ctx.lineTo(x, canvas.height);
-    ctx.stroke();
-  }
-  ctx.globalAlpha = 1;
-
-  return canvas;
-}
 
 function createCloudTexture() {
   const canvas = document.createElement("canvas");
@@ -375,23 +279,7 @@ function seededRandom(seed) {
   return value - Math.floor(value);
 }
 
-function drawLand(ctx, color, points) {
-  ctx.fillStyle = color;
-  ctx.strokeStyle = "rgba(217, 247, 255, 0.34)";
-  ctx.lineWidth = 5;
-  ctx.beginPath();
-  points.forEach(([x, y], index) => {
-    if (index === 0) {
-      ctx.moveTo(x, y);
-      return;
-    }
-    const [previousX, previousY] = points[index - 1];
-    ctx.quadraticCurveTo(previousX, previousY, x, y);
-  });
-  ctx.closePath();
-  ctx.fill();
-  ctx.stroke();
-}
+
 
 function latLonToVector3(lat, lon, radius) {
   const phi = (90 - lat) * (Math.PI / 180);
