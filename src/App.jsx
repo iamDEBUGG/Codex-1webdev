@@ -7,7 +7,7 @@ import { RoadmapSection } from "./components/RoadmapSection.jsx";
 import { SmartExpenseAI } from "./components/SmartExpenseAI.jsx";
 import { SummaryCards } from "./components/SummaryCards.jsx";
 import { TravelSafetySection } from "./components/TravelSafetySection.jsx";
-import { safetyCountries } from "./data/mockData.js";
+import { safetyCountries as staticCountries } from "./data/mockData.js";
 import {
   buildCategoryTotals,
   buildMonthlyTrend,
@@ -18,15 +18,28 @@ import {
   resetStoredExpenses,
   saveExpenses
 } from "./utils/expenseUtils.js";
+import { fetchSafetyCountries } from "./utils/travelApi.js";
 
 function App() {
   const [expenses, setExpenses] = useState(loadStoredExpenses);
   const [expenseForm, setExpenseForm] = useState(emptyExpenseForm);
-  const [selectedCountryCode, setSelectedCountryCode] = useState(safetyCountries[0].code);
+  const [countries, setCountries] = useState(staticCountries);
+  const [selectedCountryCode, setSelectedCountryCode] = useState(staticCountries[0].code);
+
+  // Load live safety data on mount
+  useEffect(() => {
+    fetchSafetyCountries().then((liveCountries) => {
+      setCountries(liveCountries);
+      // If the currently selected country exists in live data, keep it; otherwise select the first
+      if (!liveCountries.some((c) => c.code === selectedCountryCode)) {
+        setSelectedCountryCode(liveCountries[0]?.code || staticCountries[0].code);
+      }
+    });
+  }, []);
 
   const selectedCountry =
-    safetyCountries.find((country) => country.code === selectedCountryCode) || safetyCountries[0];
-  const safeCountries = safetyCountries.filter((country) => country.level === "Low").length;
+    countries.find((country) => country.code === selectedCountryCode) || countries[0];
+  const safeCountries = countries.filter((country) => country.level === "Low").length;
   const summary = calculateExpenseSummary(expenses);
   const chartCategories = useMemo(() => buildCategoryTotals(expenses), [expenses]);
   const trendData = useMemo(() => buildMonthlyTrend(expenses), [expenses]);
@@ -86,7 +99,7 @@ function App() {
       />
       <AnalyticsSection categoryData={chartCategories} trendData={trendData} />
       <TravelSafetySection
-        countries={safetyCountries}
+        countries={countries}
         selectedCountry={selectedCountry}
         onSelectCountry={setSelectedCountryCode}
       />
